@@ -1,9 +1,9 @@
-import Image from "next/image";
+import EventLiveCycle from "./_local_components/EventLiveCycle";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans">
-      
+    <div className="min-h-[100vh] mt-1  font-sans bg-red-500">
+      <EventLiveCycle />
     </div>
   );
 }
