@@ -1,0 +1,8 @@
+import Header from "./_local_components/Header";
+
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+    return <div>
+        <Header />
+        {children}
+        </div>;
+}
