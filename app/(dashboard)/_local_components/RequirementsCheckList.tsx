@@ -80,7 +80,7 @@ function RequirementsCheckList({
           </div>
         </div>
       )}
-      <Card className="w-full border border-zinc-800 bg-zinc-900/40 backdrop-blur-xl shadow-lg">
+      <Card className="w-full rounded-xl border border-zinc-800/60 bg-zinc-900/20 backdrop-blur-md  shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)]">
         <CardHeader className="space-y-2">
           <CardTitle className="text-white text-lg font-semibold">
             Streaming Readiness Checklist

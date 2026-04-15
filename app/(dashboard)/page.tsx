@@ -41,7 +41,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen relative bg-[#0F1117] text-white px-6 py-10 overflow-hidden">
+    <div className="min-h-screen relative bg-[#0F1117] text-white px-2 md:px-6 py-10 overflow-hidden">
       {/* system grid background */}
 
   {/* grid */}
@@ -61,11 +61,10 @@ export default function Home() {
   <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,#ffffff05,transparent_70%)]" />
       <div className="relative grid grid-cols-1 md:grid-cols-[350px_1fr] lg:grid-cols-[500px_1fr] gap-6 max-w-7xl mx-auto">
         {/* LEFT COLUMN */}
-        <div className="space-y-4">
+        <div className="space-y-4 order-2 md:order-1">
           <div className="rounded-xl border border-zinc-800/60 bg-zinc-900/20 backdrop-blur-md p-4 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)]">
             <EventLiveCycle currentState={state ?? "draft"} />
           </div>
-          <div className="rounded-xl border border-zinc-800/60 bg-zinc-900/30 backdrop-blur-md p-4 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
             <EventDetails
               description={data?.description ?? "N/A"}
               id={data?.id ?? "N/A"}
@@ -74,25 +73,22 @@ export default function Home() {
               state={state ?? "draft"}
               title={data?.title ?? "N/A"}
             />
-          </div>
 
           <div className="flex items-center justify-between gap-3 p-4 rounded-xl border border-zinc-800/60 bg-zinc-900/20 backdrop-blur-md shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
             <p className="text-sm text-zinc-400">Control event lifecycle</p>
             <EventStateToggle isReady={isReady} state={state ?? "draft"} />
           </div>
 
-          <div className="rounded-xl border border-zinc-800/60 bg-zinc-900/20 backdrop-blur-md p-4 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)]">
             <RequirementsCheckList
               requirements={data?.requirements ?? []}
               activeState={state ?? "draft"}
               isReady={isReady ?? false}
               allowStreaming={allowStreaming}
             />
-          </div>
         </div>
 
         {/* RIGHT COLUMN */}
-        <div className="w-full flex flex-col gap-3">
+        <div className="w-full flex flex-col gap-3 order-1 md:order-2">
           {/* VIDEO */}
           {allowStreaming ? (
             <div className="rounded-xl border border-zinc-800/60 bg-black/20 backdrop-blur-md overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.4)]">

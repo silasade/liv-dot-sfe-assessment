@@ -23,7 +23,7 @@ function EventDetails({
   title,
 }: PropType) {
   return (
-    <Card className="w-full border border-zinc-800 bg-zinc-900/40 backdrop-blur-xl shadow-lg">
+    <Card className="w-full rounded-xl border border-zinc-800/60 bg-zinc-900/30 backdrop-blur-md shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
       <CardHeader className="space-y-3">
         {/* TITLE */}
         <div className="flex flex-row items-center justify-between ">
