@@ -8,7 +8,7 @@ import EventStateToggle from "./_local_components/EventStateToggle";
 import RequirementsCheckList from "./_local_components/RequirementsCheckList";
 import VideoPlayer from "./_local_components/VideoPlayer";
 import EventDetails from "./_local_components/EventDetails";
-import EventLiveCycle from "../_global_components/EventLiveCycle";
+import EventLiveCycle from "./_local_components/EventLiveCycle";
 
 export default function Home() {
   const { data, isLoading, state, isError, refetch, isReady, allowStreaming } =
