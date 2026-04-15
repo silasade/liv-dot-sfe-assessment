@@ -144,7 +144,6 @@ function RequirementsCheckList({
               );
             })}
 
-          {/* PRICING */}
           <div
             className={cn(
               "flex items-start gap-3 p-4 rounded-lg border border-zinc-200 bg-zinc-50",
@@ -152,7 +151,6 @@ function RequirementsCheckList({
               allowStreaming && "opacity-50 cursor-not-allowed",
             )}
           >
-            {/* ICON */}
             <div
               className={cn(
                 "shrink-0 h-5 sm:h-10 w-5 sm:w-10 rounded-full flex items-center justify-center border",
@@ -168,7 +166,6 @@ function RequirementsCheckList({
               )}
             </div>
 
-            {/* CONTENT */}
             <div className="flex flex-1 flex-col gap-2">
               <h6
                 className={cn(
@@ -181,7 +178,6 @@ function RequirementsCheckList({
 
               <p className="text-xs text-zinc-500">{pricingReq?.description}</p>
 
-              {/* INPUT + BUTTON */}
               <div className="flex gap-2 mt-2">
                 <Input
                   type="number"

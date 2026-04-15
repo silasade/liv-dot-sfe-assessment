@@ -25,7 +25,6 @@ function EventDetails({
   return (
     <Card className="w-full rounded-xl border border-zinc-200 bg-white/80 backdrop-blur-md shadow-sm">
       <CardHeader className="space-y-3">
-        {/* TITLE */}
         <div className="flex flex-row items-center justify-between">
           <CardTitle className="text-zinc-900 text-lg font-semibold">
             {title}
@@ -42,12 +41,10 @@ function EventDetails({
           )}
         </div>
 
-        {/* DESCRIPTION */}
         <CardDescription className="text-zinc-500 text-sm leading-relaxed">
           {description}
         </CardDescription>
 
-        {/* META INFO */}
         <div className="flex flex-wrap items-center gap-3 text-xs text-zinc-500 pt-2">
           <span className="px-2 py-1 rounded-md bg-zinc-100 border border-zinc-200 text-zinc-600">
             ID: {id}

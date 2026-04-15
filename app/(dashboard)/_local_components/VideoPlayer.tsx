@@ -25,7 +25,6 @@ function VideoPlayer({ streamUrl, isLive, viewers }: PropType) {
     <div className="aspect-video rounded-xl border border-zinc-200 bg-white shadow-md overflow-hidden w-full">
       <MediaController className="w-full aspect-video bg-black">
         
-        {/* VIDEO */}
         <HlsVideo
           slot="media"
           src={streamUrl}
@@ -35,12 +34,10 @@ function VideoPlayer({ streamUrl, isLive, viewers }: PropType) {
           className="w-full h-full object-cover"
         />
 
-        {/* LOADING */}
         <MediaLoadingIndicator className="absolute inset-0 flex items-center justify-center bg-black/30">
           <div className="h-6 w-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
         </MediaLoadingIndicator>
 
-        {/* LIVE BADGE */}
         {isLive && (
           <div className="absolute top-3 left-3 flex items-center gap-2 px-2 py-1 rounded-md bg-red-500 text-white text-xs font-medium shadow">
             <span className="h-2 w-2 rounded-full bg-white animate-pulse" />
@@ -48,7 +45,6 @@ function VideoPlayer({ streamUrl, isLive, viewers }: PropType) {
           </div>
         )}
 
-        {/* CONTROLS */}
         <MediaControlBar className="bg-gradient-to-t from-black/70 to-transparent border-none px-3 flex items-center justify-between">
           
           {isLive && (

@@ -5,32 +5,25 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  /* --- LIV DOT CORE COLORS --- */
   --color-main: #0B0B0F;
   --color-card-bg: #111118;
   --color-elevated: #161621;
   --color-border-main: #232332;
 
-  /* --- PRIMARY BRAND (LIV DOT Purple) --- */
   --color-primary: #7C3AED;
   --color-primary-soft: #A78BFA;
   --color-primary-glow: rgba(124, 58, 237, 0.25);
 
-  /* --- SYSTEM STATUS COLORS --- */
   --color-success: #22C55E;
   --color-warning: #FACC15;
   --color-error: #EF4444;
   --color-info: #3B82F6;
 
-  /* --- SEMANTIC MAPPING --- */
   --color-background: var(--color-main);
   --color-card: var(--color-card-bg);
   --color-border: var(--color-border-main);
   --color-accent: var(--color-elevated);
   
-  /* --- CUSTOM RADIUS --- */
-
-
 
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);

@@ -68,16 +68,13 @@ function EventLiveCycle({ currentState }: PropType) {
     <div className="flex flex-row md:items-center w-full gap-6 md:gap-0">
       {states.map((item, index) => {
         const styles = getStepStyles(index);
-        const isLast = index === states.length - 1;
 
         return (
           <div
             key={item.state}
             className="flex md:flex-1 md:items-center flex-row md:flex-col items-center"
           >
-            {/* NODE */}
             <div className="flex flex-row md:flex-col items-center md:flex-1">
-              {/* DOT */}
               <div
                 className={cn(
                   "w-2.5 h-2.5 rounded-full transition-all",
@@ -85,7 +82,6 @@ function EventLiveCycle({ currentState }: PropType) {
                 )}
               />
 
-              {/* CONNECTOR */}
               <div
                 className={cn(
                   "h-[1px] md:h-6 md:w-[1px] w-6 mt-0 md:mt-1 ml-2 md:ml-0 transition-all",
@@ -93,7 +89,6 @@ function EventLiveCycle({ currentState }: PropType) {
                 )}
               />
 
-              {/* LABEL */}
               <span
                 className={cn(
                   "text-[10px] uppercase tracking-widest ml-2 md:ml-0 md:mt-2 hidden md:inline-block transition-colors",
@@ -104,15 +99,7 @@ function EventLiveCycle({ currentState }: PropType) {
               </span>
             </div>
 
-            {/* HORIZONTAL CONNECTOR */}
-            {!isLast && (
-              <div
-                className={cn(
-                  "hidden md:block h-[1px] flex-1 transition-colors",
-                  index < activeIndex ? "bg-emerald-200" : "bg-zinc-200",
-                )}
-              />
-            )}
+            
           </div>
         );
       })}

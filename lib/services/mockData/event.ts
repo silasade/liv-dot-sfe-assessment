@@ -5,10 +5,10 @@ const events: EventType[] = [
     id: "ev-01",
     title: "Live Concert",
     description: "Amazing live show",
-    scheduledAt: null, //will be entered by admin
-    state: "draft", //initial state of event
+    scheduledAt: null, 
+    state: "draft", 
     viewers: 500,
-    price: null, //will be entered by admin
+    price: null,
     streamUrl:
       "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8",
     requirements: [

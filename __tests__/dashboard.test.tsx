@@ -8,9 +8,6 @@ vi.mock("@/lib/hooks/useEventStat", () => ({
   useEventStat: vi.fn(),
 }));
 
-// Minimal mocks for problematic responsive components or browser APIs if needed.
-// E.g., if rechart or next/image are used, they can be mocked here.
-// For now, let's use the real local-components for integration test feeling.
 
 describe("Dashboard Page Integration", () => {
   const mockRefetch = vi.fn();
@@ -84,10 +81,8 @@ describe("Dashboard Page Integration", () => {
       </QueryClientProvider>,
     );
 
-    // Header
     expect(screen.getByText("State: draft")).toBeInTheDocument();
 
-    // Since allowStreaming is false, no video player section is loaded.
     const videos = container.querySelectorAll("video");
     expect(videos.length).toBe(0);
   });
