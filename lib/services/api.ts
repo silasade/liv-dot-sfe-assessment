@@ -12,6 +12,7 @@ export async function requests<T>(
       ...init?.headers,
       ...(token && { Authorization: `Bearer ${token}` }),
     },
+    cache: "no-store",
     body: init?.body,
   });
   

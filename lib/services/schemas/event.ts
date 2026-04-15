@@ -46,3 +46,4 @@ export const UpdateEventSchema = z.object({
 export type EventStateType = z.infer<typeof EventStateSchema>;
 export type EventType = z.infer<typeof EventSchema>;
 export type UpdateEventDTO = z.infer<typeof UpdateEventSchema>;
+export type EventRequirementsType=z.infer<typeof EventRequirementsSchema>

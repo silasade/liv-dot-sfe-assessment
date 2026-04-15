@@ -1,18 +1,36 @@
-import { useGetEventById } from "../services/queries/event";
-import { eventID } from "../services/mockData/event";
+import { useMemo } from "react";
+import { useGetEventById } from "@/lib/services/queries/event";
+
 const useEventStat = (id: string) => {
-  const { data, isError, isLoading } = useGetEventById(eventID);
-  const hasSchedule = data?.data.scheduledAt !== null;
-  const requirementsSatisfied = data?.data.requirements.every(
-    (requirement) => requirement.isSatisfied,
-  );
+  const { data, isError, isLoading, refetch } = useGetEventById(id);
+
+  const event = data?.data?.event;
+
+  const hasSchedule = !!event?.scheduledAt;
+
+  const requirementsSatisfied =
+    event?.requirements?.every((r) => r.isSatisfied) ?? false;
+
   const isReady = hasSchedule && requirementsSatisfied;
 
+  const allowStreaming = useMemo(() => {
+    if (!event) return false;
+
+    return (
+      event.state === "live" ||
+      event.state === "replay" ||
+      event.state === "completed"
+    );
+  }, [event]);
+
   return {
-    data,
+    state: event?.state,
+    data: event,
     isError,
     isLoading,
     isReady,
+    allowStreaming,
+    refetch,
   };
 };
 

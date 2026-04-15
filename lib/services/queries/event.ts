@@ -12,7 +12,7 @@ const useGetAllEvents = () => {
 const useGetEventById = (id: string) => {
   return useQuery({
     queryKey: ["event", id],
-    queryFn: () => requests<EventType>(`events/${id}`),
+    queryFn: () => requests<{event:EventType}>(`events/${id}`),
     enabled: !!id,
   });
 };

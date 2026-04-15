@@ -9,7 +9,7 @@ const events: EventType[] = [
     state: "draft", //initial state of event
     viewers: 500,
     price: null, //will be entered by admin
-    streamUrl:"",
+    streamUrl: "http://playertest.longtailvideo.com/adaptive/wowzaid3/playlist.m3u8",
     requirements: [
       {
         description:
