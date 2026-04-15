@@ -35,8 +35,15 @@ State progression is inherently guarded. The transition to `Ready for Streaming`
 
 ## Implementation Notes
 
-**Component Structure**
-The repository groups files tightly by Feature Scope (Locality of Behavior). The core interface lives in `app/(dashboard)`. Components specific strictly to the operations dashboard are kept under `_local_components/` right alongside `page.tsx`. If a component ever needs to be shared across multiple routes or components, it is promoted out to `_global_components/`.
+**Folder & Component Architecture**
+The codebase follows a locality-first organizing principle. The main user interface is housed within the `app/(dashboard)` directory. To maintain separation of concerns, components that exclusively serve the dashboard are scoped directly within its directory under `_local_components/`. Components that are reused across different parts of the application are elevated to a central `_global_components/` folder for broader access.
+
+**Data Service Layer**
+All remote asynchronous operations are strictly organized inside the `/lib/services/` directory to prevent data logic from leaking into UI components:
+- `/lib/services/mockData`: Maintains the initial dataset and static payload structures for the API (without artificial blocking delays).
+- `/lib/services/queries`: Encapsulates reusable TanStack Query fetchers (`useQuery`), serving as the single source of truth for read operations.
+- `/lib/services/mutations`: Isolates data manipulation (`useMutation`), cleanly orchestrating cache invalidations alongside Next.js API requests.
+- `/lib/services/schemas`: Houses all Zod definitions to enforce an ironclad data contract across the entire service ecosystem.
 
 **State Architecture**
 Rather than relying on heavy global state containers like Redux or Zustand, I adopted a split approach tailored for modern React:
