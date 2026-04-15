@@ -58,11 +58,9 @@ function EventLiveCycle({ currentState }: PropType) {
     if (index < activeIndex) {
       return stateStyles["completedSteps"];
     }
-
     if (index === activeIndex) {
       return stateStyles["completedSteps"];
     }
-
     return stateStyles["futureSteps"];
   };
 

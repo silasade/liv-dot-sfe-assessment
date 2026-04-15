@@ -47,7 +47,7 @@ function EventStateToggle({ state, isReady }: PropType) {
   const [date, setDate] = useState<Date>();
   const [openCalendar, setOpenCalendar] = useState<boolean>(false);
   const { mutateAsync, isPending } = useUpdateEvent(eventID);
-
+  const [isBackTracking,setIsBacktracking]=useState<boolean>(false)
   const handleDraft = async () => {
     try {
       if (!date) return;
@@ -65,10 +65,14 @@ function EventStateToggle({ state, isReady }: PropType) {
     try {
       const prevState = eventFlow[state].prev;
       if (!prevState) return;
+      setIsBacktracking(true)
 
       await mutateAsync({ state: prevState });
     } catch (error) {
       console.error(error);
+    }
+    finally{
+      setIsBacktracking(false)
     }
   };
   const handleState = async () => {
@@ -156,14 +160,14 @@ function EventStateToggle({ state, isReady }: PropType) {
           onClick={handleRollback}
           className="text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
         >
-          {state === "scheduled" ? "Back to draft" : "Back to schedule"}
+          {isBackTracking ? "Updating..." : eventFlow[state].backLabel}
         </Button>
       )}
 
       <Button
         disabled={isPending || state === "replay" || !isReady}
         onClick={handleState}
-  className="bg-zinc-900 text-white hover:bg-zinc-800 w-fit"
+        className="bg-zinc-900 text-white hover:bg-zinc-800 w-fit"
       >
         {state === "ready" && <Cctv className="h-5 w-5 text-primary" />}
         {isPending ? "Updating..." : eventFlow[state].label}{" "}
