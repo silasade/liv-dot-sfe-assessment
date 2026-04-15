@@ -114,12 +114,7 @@
 }
 
 @layer base {
-  * {
-    @apply border-border border-border-main;
-  }
-  body {
-    @apply bg-background text-primary;
-  }
+ 
   html {
     @apply font-sans;
   }
