@@ -41,30 +41,24 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen relative bg-[#0F1117] text-white px-2 md:px-6 py-10 overflow-hidden">
-      {/* system grid background */}
+    <div className="min-h-screen relative bg-[#F8FAFC] text-zinc-900 px-2 md:px-6 py-10 overflow-hidden">
+      {/* subtle grid */}
+      <div
+        className="absolute inset-0 opacity-[0.4] pointer-events-none 
+      [background-image:linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)]
+      bg-[size:36px_36px]"
+      />
 
-  {/* grid */}
-   <div
-    className="absolute inset-0 opacity-[0.05] pointer-events-none 
-    [background-image:linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)]
-    bg-[size:36px_36px]"
-  />
+      {/* soft ambient light */}
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top,#e2e8f060,transparent_60%)]" />
 
-  {/* brighter ambient glow (top) */}
-  <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top,#33415550,transparent_60%)]" />
-
-  {/* subtle bottom lift */}
-  <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_bottom,#1e293b40,transparent_70%)]" />
-
-  {/* slight center lift (this improves readability a lot) */}
-  <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,#ffffff05,transparent_70%)]" />
       <div className="relative grid grid-cols-1 md:grid-cols-[350px_1fr] lg:grid-cols-[500px_1fr] gap-6 max-w-7xl mx-auto">
         {/* LEFT COLUMN */}
         <div className="space-y-4 order-2 md:order-1">
-          <div className="rounded-xl border border-zinc-800/60 bg-zinc-900/20 backdrop-blur-md p-4 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)]">
+          {/* Lifecycle */}
             <EventLiveCycle currentState={state ?? "draft"} />
-          </div>
+
+          {/* Details */}
             <EventDetails
               description={data?.description ?? "N/A"}
               id={data?.id ?? "N/A"}
@@ -74,40 +68,35 @@ export default function Home() {
               title={data?.title ?? "N/A"}
             />
 
-          <div className="flex items-center justify-between gap-3 p-4 rounded-xl border border-zinc-800/60 bg-zinc-900/20 backdrop-blur-md shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
-            <p className="text-sm text-zinc-400">Control event lifecycle</p>
+          {/* Controls */}
+          <div className="flex items-center justify-between gap-3 p-4 rounded-xl border border-zinc-200 bg-white/70 backdrop-blur-md shadow-sm">
+            <p className="text-sm text-zinc-500">Control event lifecycle</p>
             <EventStateToggle isReady={isReady} state={state ?? "draft"} />
           </div>
 
-            <RequirementsCheckList
-              requirements={data?.requirements ?? []}
-              activeState={state ?? "draft"}
-              isReady={isReady ?? false}
-              allowStreaming={allowStreaming}
-            />
+          {/* Requirements */}
+          <RequirementsCheckList
+            requirements={data?.requirements ?? []}
+            activeState={state ?? "draft"}
+            isReady={isReady ?? false}
+            allowStreaming={allowStreaming}
+          />
         </div>
 
         {/* RIGHT COLUMN */}
         <div className="w-full flex flex-col gap-3 order-1 md:order-2">
           {/* VIDEO */}
           {allowStreaming ? (
-            <div className="rounded-xl border border-zinc-800/60 bg-black/20 backdrop-blur-md overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.4)]">
-              <VideoPlayer
-                isLive={state === "live"}
-                streamUrl={data?.streamUrl ?? ""}
-                viewers={data?.viewers ?? 0}
-              />
-            </div>
+            <VideoPlayer
+              isLive={state === "live"}
+              streamUrl={data?.streamUrl ?? ""}
+              viewers={data?.viewers ?? 0}
+            />
           ) : (
-            <div className="flex items-center animate-pulse justify-center aspect-video rounded-xl border border-dashed border-zinc-800 text-zinc-500 text-sm bg-black/10">
+            <div className="flex items-center justify-center aspect-video rounded-xl border border-dashed border-zinc-300 text-zinc-500 text-sm bg-zinc-100">
               Stream preview will appear here
             </div>
           )}
-          {/* <div className="rounded-xl border border-zinc-800/60 bg-black/10 backdrop-blur-md p-3 text-[11px] text-zinc-500">
-            <span className={cn(data?.requirements.)}> Stream engine </span> <span className={cn(data?.requirements.)}> latency stable </span>{" "}
-            <span className={cn(data?.requirements.)}> ingestion</span>
-            active
-          </div> */}
         </div>
       </div>
     </div>

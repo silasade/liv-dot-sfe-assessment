@@ -61,32 +61,30 @@ function RequirementsCheckList({
   return (
     <div className="flex flex-col gap-3">
       {!isReady && activeState !== "draft" && (
-        <div className="flex flex-col gap-3">
-          <div className="w-full rounded-lg border border-red-500/30 bg-red-500/10 p-4">
-            <div className="flex items-start gap-2">
-              <TriangleAlert className="h-5 w-5 text-red-400 mt-0.5 shrink-0" />
+        <div className="w-full rounded-lg border border-red-300 bg-red-50 p-4">
+          <div className="flex items-start gap-2">
+            <TriangleAlert className="h-5 w-5 text-red-500 mt-0.5 shrink-0" />
 
-              <div className="flex flex-col gap-1">
-                <h6 className="text-sm font-semibold text-red-300">
-                  Cannot mark event as ready
-                </h6>
+            <div className="flex flex-col gap-1">
+              <h6 className="text-sm font-semibold text-red-600">
+                Cannot mark event as ready
+              </h6>
 
-                <p className="text-xs text-red-400 leading-relaxed">
-                  Complete all requirements before enabling this action. Click
-                  on each requirement below to resolve any missing setup.
-                </p>
-              </div>
+              <p className="text-xs text-red-500 leading-relaxed">
+                Complete all requirements before enabling this action. Click on
+                each requirement below to resolve any missing setup.
+              </p>
             </div>
           </div>
         </div>
       )}
-      <Card className="w-full rounded-xl border border-zinc-800/60 bg-zinc-900/20 backdrop-blur-md  shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)]">
+      <Card className="w-full rounded-xl border border-zinc-200 bg-white/80 backdrop-blur-md shadow-sm">
         <CardHeader className="space-y-2">
-          <CardTitle className="text-white text-lg font-semibold">
+          <CardTitle className="text-zinc-900 text-lg font-semibold">
             Streaming Readiness Checklist
           </CardTitle>
 
-          <CardDescription className="text-zinc-400 text-sm">
+          <CardDescription className="text-zinc-500 text-sm">
             Ensure all systems are ready before going live
           </CardDescription>
         </CardHeader>
@@ -106,19 +104,19 @@ function RequirementsCheckList({
                       : handleRequirement(req.key, req.isSatisfied)
                   }
                   className={cn(
-                    "flex items-start gap-3 p-3 rounded-lg border border-zinc-800 transition cursor-pointer",
-                    "hover:bg-zinc-800/40 hover:border-zinc-700",
+                    "flex items-start gap-3 p-3 rounded-lg border border-zinc-200 transition cursor-pointer",
+                    "hover:bg-zinc-100 hover:border-zinc-300",
                     "active:scale-[0.98]",
                     isPending && "opacity-50 cursor-not-allowed",
-                    allowStreaming && "opacity-50  cursor-not-allowed",
+                    allowStreaming && "opacity-50 cursor-not-allowed",
                   )}
                 >
                   <div
                     className={cn(
                       "shrink-0 h-5 sm:h-10 w-5 sm:w-10 rounded-full flex items-center justify-center border transition-all",
                       isDone
-                        ? "bg-emerald-500/20 border-emerald-500 text-emerald-400"
-                        : "bg-red-500/20 border-red-500 text-red-400",
+                        ? "bg-emerald-100 border-emerald-500 text-emerald-600"
+                        : "bg-red-100 border-red-500 text-red-500",
                     )}
                   >
                     {isDone ? (
@@ -132,7 +130,7 @@ function RequirementsCheckList({
                     <h6
                       className={cn(
                         "text-sm font-medium",
-                        isDone ? "text-white" : "text-zinc-300",
+                        isDone ? "text-zinc-900" : "text-zinc-700",
                       )}
                     >
                       {req.title}
@@ -145,9 +143,11 @@ function RequirementsCheckList({
                 </div>
               );
             })}
+
+          {/* PRICING */}
           <div
             className={cn(
-              "flex items-start gap-3 p-4 rounded-lg border border-zinc-800 bg-zinc-900/30",
+              "flex items-start gap-3 p-4 rounded-lg border border-zinc-200 bg-zinc-50",
               isPending && "opacity-50 cursor-not-allowed",
               allowStreaming && "opacity-50 cursor-not-allowed",
             )}
@@ -157,8 +157,8 @@ function RequirementsCheckList({
               className={cn(
                 "shrink-0 h-5 sm:h-10 w-5 sm:w-10 rounded-full flex items-center justify-center border",
                 pricingReq?.isSatisfied
-                  ? "bg-emerald-500/20 border-emerald-500 text-emerald-400"
-                  : "bg-red-500/20 border-red-500 text-red-400",
+                  ? "bg-emerald-100 border-emerald-500 text-emerald-600"
+                  : "bg-red-100 border-red-500 text-red-500",
               )}
             >
               {pricingReq?.isSatisfied ? (
@@ -173,7 +173,7 @@ function RequirementsCheckList({
               <h6
                 className={cn(
                   "text-sm font-medium",
-                  pricingReq?.isSatisfied ? "text-white" : "text-zinc-300",
+                  pricingReq?.isSatisfied ? "text-zinc-900" : "text-zinc-700",
                 )}
               >
                 {pricingReq?.title}
@@ -189,13 +189,13 @@ function RequirementsCheckList({
                   value={price}
                   disabled={isPending || allowStreaming}
                   onChange={(e) => setPrice(Number(e.target.value))}
-                  className="bg-zinc-800 border-zinc-700 text-white"
+                  className="bg-white border-zinc-300 text-zinc-900 placeholder:text-zinc-400"
                 />
 
                 <Button
                   onClick={handlePricing}
                   disabled={!price || isPending || allowStreaming}
-                  className="bg-white text-black hover:bg-zinc-200"
+                  className="bg-zinc-900 text-white hover:bg-zinc-800"
                 >
                   {isPending ? "Saving..." : "Set price"}
                 </Button>

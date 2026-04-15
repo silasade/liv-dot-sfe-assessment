@@ -4,10 +4,10 @@ import React from "react";
 
 type StepType = "completedSteps" | "activeStep" | "futureSteps";
 type StepClassType = {
-  bg: string;
-  border: string;
+
   text: string;
-  line: string;
+  dot: string,
+      connector: string
 };
 const states: { state: EventStateType }[] = [
   {
@@ -32,22 +32,19 @@ const states: { state: EventStateType }[] = [
 
 const stateStyles: Record<StepType, StepClassType> = {
   completedSteps: {
-    bg: "bg-emerald-500/20",
-    border: "border-emerald-500",
-    text: "text-emerald-400",
-    line: "bg-emerald-500",
+    dot: "bg-emerald-500",
+    text: "text-emerald-700",
+    connector: "bg-emerald-300",
   },
   activeStep: {
-    bg: "bg-blue-500",
-    border: "border-blue-400",
-    text: "text-white",
-    line: "bg-blue-500/30",
+    dot: "bg-blue-500",
+    text: "text-blue-600",
+    connector: "bg-blue-300",
   },
   futureSteps: {
-    bg: "bg-zinc-800",
-    border: "border-zinc-700",
-    text: "text-zinc-500",
-    line: "bg-zinc-700",
+    dot: "bg-zinc-300",
+    text: "text-zinc-400",
+    connector: "bg-zinc-200",
   },
 };
 
@@ -57,22 +54,20 @@ type PropType = {
 function EventLiveCycle({ currentState }: PropType) {
   const activeIndex = states.findIndex((item) => item.state === currentState);
 
-  const getStepStyles = (index: number): StepClassType => {
+  const getStepStyles = (index: number):StepClassType => {
     if (index < activeIndex) {
       return stateStyles["completedSteps"];
-    } else if (index === activeIndex) {
-      return stateStyles["activeStep"];
-    } else {
-      return stateStyles["futureSteps"];
     }
+
+    if (index === activeIndex) {
+      return stateStyles["completedSteps"];
+    }
+
+    return stateStyles["futureSteps"];
   };
+
   return (
-    <div
-      className="
-      flex flex-row md:items-center w-full
-      gap-6 md:gap-0
-    "
-    >
+    <div className="flex flex-row md:items-center w-full gap-6 md:gap-0">
       {states.map((item, index) => {
         const styles = getStepStyles(index);
         const isLast = index === states.length - 1;
@@ -80,26 +75,30 @@ function EventLiveCycle({ currentState }: PropType) {
         return (
           <div
             key={item.state}
-            className="
-            flex md:flex-1 md:items-center
-            flex-row md:flex-col
-            items-center
-          "
+            className="flex md:flex-1 md:items-center flex-row md:flex-col items-center"
           >
-            {/* Node block */}
+            {/* NODE */}
             <div className="flex flex-row md:flex-col items-center md:flex-1">
-              <div className={cn("w-2 h-2 rounded-full animate-pulse", styles.line)} />
-
+              {/* DOT */}
               <div
                 className={cn(
-                  "h-[1px] md:h-6 md:w-[1px] w-6 mt-0 md:mt-1 ml-2 md:ml-0",
-                  styles.line,
+                  "w-2.5 h-2.5 rounded-full transition-all",
+                  styles.dot,
                 )}
               />
 
+              {/* CONNECTOR */}
+              <div
+                className={cn(
+                  "h-[1px] md:h-6 md:w-[1px] w-6 mt-0 md:mt-1 ml-2 md:ml-0 transition-all",
+                  styles.connector,
+                )}
+              />
+
+              {/* LABEL */}
               <span
                 className={cn(
-                  "text-[10px] uppercase tracking-widest ml-2 md:ml-0 md:mt-2 hidden md:inline-block",
+                  "text-[10px] uppercase tracking-widest ml-2 md:ml-0 md:mt-2 hidden md:inline-block transition-colors",
                   styles.text,
                 )}
               >
@@ -107,12 +106,12 @@ function EventLiveCycle({ currentState }: PropType) {
               </span>
             </div>
 
-            {/* Connector line (desktop only) */}
+            {/* HORIZONTAL CONNECTOR */}
             {!isLast && (
               <div
                 className={cn(
-                  "hidden md:block h-[1px] flex-1",
-                  index < activeIndex ? "bg-emerald-500/60" : "bg-zinc-800",
+                  "hidden md:block h-[1px] flex-1 transition-colors",
+                  index < activeIndex ? "bg-emerald-200" : "bg-zinc-200",
                 )}
               />
             )}
@@ -122,5 +121,4 @@ function EventLiveCycle({ currentState }: PropType) {
     </div>
   );
 }
-
 export default EventLiveCycle;
