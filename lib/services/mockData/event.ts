@@ -9,7 +9,8 @@ const events: EventType[] = [
     state: "draft", //initial state of event
     viewers: 500,
     price: null, //will be entered by admin
-    streamUrl: "http://playertest.longtailvideo.com/adaptive/wowzaid3/playlist.m3u8",
+    streamUrl:
+      "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8",
     requirements: [
       {
         description:
