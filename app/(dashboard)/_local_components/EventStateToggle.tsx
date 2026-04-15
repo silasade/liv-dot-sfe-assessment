@@ -66,7 +66,7 @@ function EventStateToggle({ state, isReady }: PropType) {
         <Popover onOpenChange={setOpenCalendar} open={openCalendar}>
           <PopoverTrigger
             data-empty={!date}
-            className="p-2 rounded-md w-fit justify-center gap-2 text-left font-normal border-zinc-700 bg-zinc-900/40 text-zinc-200 hover:bg-zinc-900 hover:border-zinc-600 data-[empty=true]:text-zinc-500"
+            className="p-2 rounded-md w-fit justify-center gap-2 text-left font-normal  bg-white text-black hover:bg-zinc-200 data-[empty=true]:text-zinc-500"
           >
             Schedule event
           </PopoverTrigger>
@@ -105,7 +105,7 @@ function EventStateToggle({ state, isReady }: PropType) {
             <Button
               disabled={!date || isPending}
               onClick={handleDraft}
-              className="bg-white text-black hover:bg-zinc-200 w-full"
+              className=" w-full bg-zinc-900/40 text-zinc-200 border-zinc-700 hover:bg-zinc-900 hover:border-zinc-600"
             >
               {isPending ? "Scheduling..." : "Confirm schedule"}
             </Button>

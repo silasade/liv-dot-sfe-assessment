@@ -7,12 +7,7 @@ function Loading() {
   return (
     <div className="w-full min-h-screen flex items-center justify-center bg-main">
       <div className="flex flex-col items-center gap-3">
-        
         <LoaderCircle className="h-6 w-6 animate-spin text-zinc-400" />
-
-        <p className="text-sm text-zinc-500">
-          Loading event...
-        </p>
       </div>
     </div>
   );

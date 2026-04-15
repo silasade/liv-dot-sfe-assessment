@@ -9,30 +9,24 @@ type StepClassType = {
   text: string;
   line: string;
 };
-const states: { state: EventStateType; label: string }[] = [
+const states: { state: EventStateType }[] = [
   {
-    label: "Draft",
     state: "draft",
   },
   {
     state: "scheduled",
-    label: "Scheduled",
   },
   {
     state: "ready",
-    label: "Ready for Streaming",
   },
   {
     state: "live",
-    label: "Live",
   },
   {
     state: "completed",
-    label: "Completed",
   },
   {
     state: "replay",
-    label: "Replay Available",
   },
 ];
 
@@ -73,26 +67,34 @@ function EventLiveCycle({ currentState }: PropType) {
     }
   };
   return (
-    <div className="flex flex-row items-center w-full">
+    <div className="flex flex-row items-center w-full  justify-start">
       {states.map((item, index) => {
         const styles = getStepStyles(index);
         const isLast = index === states.length - 1;
         return (
-          <div key={item.state} className="flex flex-1 gap-2 items-center">
+          <div
+            key={item.state}
+            className="flex flex-1 gap-1 sm:gap-2 items-center w-full"
+          >
             <div className="flex flex-col gap-2 items-center flex-1">
               <div
                 className={cn(
-                  "h-12 w-12 rounded-full flex items-center justify-center border-2 transition-all",
+                  "h-5 sm:h-8 sm:h-12 w-5 sm:w-8 sm:w-12 rounded-full p-1 flex items-center justify-center border-2 transition-all",
                   styles.bg,
                   styles.border,
                 )}
               >
-                <p className={cn("text-sm font-bold", styles.text)}>
+                <p className={cn("text-xs sm:text-sm font-bold", styles.text)}>
                   {index + 1}
                 </p>
               </div>
 
-              <p className={cn("uppercase text-xs tracking-wide font-extrabold", styles.text)}>
+              <p
+                className={cn(
+                  "uppercase text-xs tracking-wide font-extrabold hidden md:block",
+                  styles.text,
+                )}
+              >
                 {item.state}
               </p>
             </div>

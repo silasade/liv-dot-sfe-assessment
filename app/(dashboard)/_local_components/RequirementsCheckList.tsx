@@ -9,7 +9,10 @@ import {
 import { Input } from "@/app/_global_components/shadcn-ui/ui/input";
 import { eventID } from "@/lib/services/mockData/event";
 import { useUpdateEvent } from "@/lib/services/mutations/event";
-import { EventRequirementsType, EventStateType } from "@/lib/services/schemas/event";
+import {
+  EventRequirementsType,
+  EventStateType,
+} from "@/lib/services/schemas/event";
 import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 import { X } from "lucide-react";
@@ -19,9 +22,15 @@ import React, { useState } from "react";
 type PropType = {
   requirements: EventRequirementsType[];
   isReady: boolean;
-  activeState:EventStateType
+  activeState: EventStateType;
+  allowStreaming: boolean;
 };
-function RequirementsCheckList({ requirements, isReady,activeState }: PropType) {
+function RequirementsCheckList({
+  requirements,
+  isReady,
+  activeState,
+  allowStreaming,
+}: PropType) {
   const { mutateAsync, isPending } = useUpdateEvent(eventID);
   const [price, setPrice] = useState<number>(0);
   const pricingReq = requirements.find((r) => r.key === "pricing");
@@ -51,11 +60,11 @@ function RequirementsCheckList({ requirements, isReady,activeState }: PropType) 
   };
   return (
     <div className="flex flex-col gap-3">
-      {!isReady && activeState==="scheduled" &&  (
+      {!isReady && activeState !== "draft" && (
         <div className="flex flex-col gap-3">
           <div className="w-full rounded-lg border border-red-500/30 bg-red-500/10 p-4">
             <div className="flex items-start gap-2">
-              <TriangleAlert className="h-5 w-5 text-red-400 mt-0.5" />
+              <TriangleAlert className="h-5 w-5 text-red-400 mt-0.5 shrink-0" />
 
               <div className="flex flex-col gap-1">
                 <h6 className="text-sm font-semibold text-red-300">
@@ -91,26 +100,31 @@ function RequirementsCheckList({ requirements, isReady,activeState }: PropType) 
               return (
                 <div
                   key={req.key}
-                  onClick={() => handleRequirement(req.key, req.isSatisfied)}
+                  onClick={() =>
+                    allowStreaming
+                      ? {}
+                      : handleRequirement(req.key, req.isSatisfied)
+                  }
                   className={cn(
                     "flex items-start gap-3 p-3 rounded-lg border border-zinc-800 transition cursor-pointer",
                     "hover:bg-zinc-800/40 hover:border-zinc-700",
                     "active:scale-[0.98]",
-                    isPending && "opacity-50 pointer-events-none",
+                    isPending && "opacity-50 cursor-not-allowed",
+                    allowStreaming && "opacity-50  cursor-not-allowed",
                   )}
                 >
                   <div
                     className={cn(
-                      "h-10 w-10 rounded-full flex items-center justify-center border transition-all",
+                      "shrink-0 h-5 sm:h-10 w-5 sm:w-10 rounded-full flex items-center justify-center border transition-all",
                       isDone
                         ? "bg-emerald-500/20 border-emerald-500 text-emerald-400"
                         : "bg-red-500/20 border-red-500 text-red-400",
                     )}
                   >
                     {isDone ? (
-                      <Check className="h-4 w-4" />
+                      <Check className="h-2 sm:h-4 w-2 sm:w-4" />
                     ) : (
-                      <X className="h-4 w-4" />
+                      <X className="h-2 sm:h-4 w-2 sm:w-4" />
                     )}
                   </div>
 
@@ -131,20 +145,26 @@ function RequirementsCheckList({ requirements, isReady,activeState }: PropType) 
                 </div>
               );
             })}
-          <div className="flex items-start gap-3 p-4 rounded-lg border border-zinc-800 bg-zinc-900/30">
+          <div
+            className={cn(
+              "flex items-start gap-3 p-4 rounded-lg border border-zinc-800 bg-zinc-900/30",
+              isPending && "opacity-50 cursor-not-allowed",
+              allowStreaming && "opacity-50 cursor-not-allowed",
+            )}
+          >
             {/* ICON */}
             <div
               className={cn(
-                "h-10 w-10 rounded-full flex items-center justify-center border",
+                "shrink-0 h-5 sm:h-10 w-5 sm:w-10 rounded-full flex items-center justify-center border",
                 pricingReq?.isSatisfied
                   ? "bg-emerald-500/20 border-emerald-500 text-emerald-400"
                   : "bg-red-500/20 border-red-500 text-red-400",
               )}
             >
               {pricingReq?.isSatisfied ? (
-                <Check className="h-4 w-4" />
+                <Check className="h-2 sm:h-4 w-2 sm:w-4" />
               ) : (
-                <X className="h-4 w-4" />
+                <X className="h-2 sm:h-4 w-2 sm:w-4" />
               )}
             </div>
 
@@ -167,13 +187,14 @@ function RequirementsCheckList({ requirements, isReady,activeState }: PropType) 
                   type="number"
                   placeholder="Enter ticket price"
                   value={price}
+                  disabled={isPending || allowStreaming}
                   onChange={(e) => setPrice(Number(e.target.value))}
                   className="bg-zinc-800 border-zinc-700 text-white"
                 />
 
                 <Button
                   onClick={handlePricing}
-                  disabled={!price || isPending}
+                  disabled={!price || isPending || allowStreaming}
                   className="bg-white text-black hover:bg-zinc-200"
                 >
                   {isPending ? "Saving..." : "Set price"}

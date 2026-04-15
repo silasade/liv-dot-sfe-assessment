@@ -1,20 +1,14 @@
 "use client";
 
 import { useEventStat } from "@/lib/hooks/useEventStat";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../_global_components/shadcn-ui/ui/card";
-import EventLiveCycle from "./_local_components/EventLiveCycle";
+
 import { eventID } from "@/lib/services/mockData/event";
 import { AlertTriangle, LoaderCircle } from "lucide-react";
 import { Button } from "../_global_components/shadcn-ui/ui/button";
 import EventStateToggle from "./_local_components/EventStateToggle";
-import { format } from "date-fns";
 import RequirementsCheckList from "./_local_components/RequirementsCheckList";
 import VideoPlayer from "./_local_components/VideoPlayer";
+import EventDetails from "./_local_components/EventDetails";
 
 export default function Home() {
   const { data, isLoading, state, isError, refetch, isReady, allowStreaming } =
@@ -58,44 +52,19 @@ export default function Home() {
         </div>
 
         {/* CARD */}
-        <Card className="w-full border border-zinc-800 bg-zinc-900/40 backdrop-blur-xl shadow-lg">
-          <CardHeader className="space-y-3">
-            {/* TITLE */}
-            <CardTitle className="text-white text-lg font-semibold">
-              {data?.title}
-            </CardTitle>
-
-            {/* DESCRIPTION */}
-            <CardDescription className="text-zinc-400 text-sm leading-relaxed">
-              {data?.description}
-            </CardDescription>
-
-            {/* META INFO */}
-            <div className="flex items-center gap-3 text-xs text-zinc-500 pt-2">
-              <span className="px-2 py-1 rounded-md bg-zinc-800 border border-zinc-700">
-                ID: {data?.id}
-              </span>
-
-              <span className="px-2 py-1 rounded-md bg-zinc-800 border border-zinc-700">
-                State: {state ?? "draft"}
-              </span>
-              {data?.scheduledAt && (
-                <span className="px-2 py-1 rounded-md bg-zinc-800 border border-zinc-700">
-                  Scheduled at: {format(data.scheduledAt, "EEEE LLL, RRR")}
-                </span>
-              )}
-            </div>
-          </CardHeader>
-
-          {/* LIFECYCLE */}
-          <div className="px-6 pb-6">
-            <EventLiveCycle currentState={state ?? "draft"} />
-          </div>
-        </Card>
+        <EventDetails
+          description={data?.description ?? "N/A"}
+          id={data?.id ?? "N/A"}
+          price={data?.price}
+          scheduledAt={data?.scheduledAt}
+          state={state ?? "draft"}
+          title={data?.title ?? "N/A"}
+        />
         {allowStreaming && (
           <VideoPlayer
             isLive={state === "live" ? true : false}
             streamUrl={data?.streamUrl ?? ""}
+            viewers={data?.viewers ?? 0}
           />
         )}
 
@@ -104,6 +73,7 @@ export default function Home() {
           requirements={data?.requirements ?? []}
           activeState={state ?? "draft"}
           isReady={isReady ?? false}
+          allowStreaming={allowStreaming}
         />
       </div>
     </div>

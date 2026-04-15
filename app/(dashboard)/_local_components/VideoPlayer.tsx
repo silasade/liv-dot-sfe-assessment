@@ -10,15 +10,17 @@ import {
   MediaTimeDisplay,
   MediaFullscreenButton,
   MediaLoadingIndicator,
+  MediaLiveButton,
 } from "media-chrome/react";
 import HlsVideo from "hls-video-element/react";
 
 type PropType = {
   streamUrl: string;
   isLive: boolean;
+  viewers: number;
 };
 
-function VideoPlayer({ streamUrl, isLive }: PropType) {
+function VideoPlayer({ streamUrl, isLive, viewers }: PropType) {
   return (
     <div className="w-full rounded-xl overflow-hidden  bg-black relative">
       <MediaController className="w-full aspect-video bg-black ">
@@ -39,20 +41,23 @@ function VideoPlayer({ streamUrl, isLive }: PropType) {
 
         {/* LIVE BADGE */}
         {isLive && (
-          <div className="absolute top-3 right-3 flex items-center gap-2 px-2 py-1 rounded-md bg-red-500 text-white text-xs font-medium">
+          <div className="absolute top-3 left-3 flex items-center gap-2 px-2 py-1 rounded-md bg-red-500 text-white text-xs font-medium">
             <span className="h-2 w-2 rounded-full bg-white animate-pulse" />
-            LIVE
+            {viewers.toLocaleString()} watching
           </div>
         )}
 
         {/* CONTROLS */}
         <MediaControlBar className="bg-gradient-to-t from-black/80 to-transparent border-none px-2 flex items-center justify-between">
+          {isLive && (
+            <MediaLiveButton className="text-red-400 text-lg bg-transparent absolute top-3 right-3" />
+          )}
           <MediaPlayButton className="text-white bg-transparent" />
           <div className="flex flex-row gap-2 items-center w-full">
-            {!isLive && <MediaTimeRange className="bg-transparent" />}
             {!isLive && (
               <MediaTimeDisplay className="text-white text-xs bg-transparent" />
             )}
+            {!isLive && <MediaTimeRange className="bg-transparent  w-full" />}
           </div>
           <div className="flex flex-row justify-end items-center gap-2">
             <MediaMuteButton className="text-white bg-transparent" />
