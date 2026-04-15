@@ -59,7 +59,7 @@ export default function Home() {
 
   {/* slight center lift (this improves readability a lot) */}
   <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,#ffffff05,transparent_70%)]" />
-      <div className="relative grid grid-cols-1 md:grid-cols-[500px_1fr] gap-6 max-w-7xl mx-auto">
+      <div className="relative grid grid-cols-1 md:grid-cols-[350px_1fr] lg:grid-cols-[500px_1fr] gap-6 max-w-7xl mx-auto">
         {/* LEFT COLUMN */}
         <div className="space-y-4">
           <div className="rounded-xl border border-zinc-800/60 bg-zinc-900/20 backdrop-blur-md p-4 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)]">
