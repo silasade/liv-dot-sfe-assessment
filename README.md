@@ -2,7 +2,7 @@
 
 A highly responsive React 19 application built out with the Next.js App Router for monitoring and managing real-time streaming events. This dashboard gives operators the capability to track event progression, complete required pre-stream checklists, toggle live states safely, and preview broadcasts via an integrated video player.
 
-> Project is live at [https://liv-dot-assessment.vercel.app](https://liv-dot-assessment.vercel.app)
+> Project is [live](https://liv-dot-sfe-assessment.vercel.app/)
 
 ---
 
