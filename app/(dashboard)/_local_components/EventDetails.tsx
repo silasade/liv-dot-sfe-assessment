@@ -6,8 +6,6 @@ import {
   CardTitle,
 } from "@/app/_global_components/shadcn-ui/ui/card";
 import { format } from "date-fns";
-
-import EventLiveCycle from "@/app/_global_components/EventLiveCycle";
 type PropType = {
   title: string;
   price: number | null | undefined;
@@ -65,10 +63,7 @@ function EventDetails({
         </div>
       </CardHeader>
 
-      {/* LIFECYCLE */}
-      <div className="p-3 sm:px-6 pb-6">
-        <EventLiveCycle currentState={state ?? "draft"} />
-      </div>
+      
     </Card>
   );
 }

@@ -22,7 +22,8 @@ type PropType = {
 
 function VideoPlayer({ streamUrl, isLive, viewers }: PropType) {
   return (
-    <div className="w-full rounded-xl overflow-hidden  bg-black relative">
+    <div className="aspect-video rounded-xl border border-zinc-800/60 bg-black/20 backdrop-blur-md overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.4)] w-full">
+      {" "}
       <MediaController className="w-full aspect-video bg-black ">
         {/* VIDEO */}
         <HlsVideo
@@ -50,7 +51,7 @@ function VideoPlayer({ streamUrl, isLive, viewers }: PropType) {
         {/* CONTROLS */}
         <MediaControlBar className="bg-gradient-to-t from-black/80 to-transparent border-none px-2 flex items-center justify-between">
           {isLive && (
-            <MediaLiveButton className="text-red-400 text-lg bg-transparent absolute top-3 right-3" />
+            <MediaLiveButton className="text-red-400 text-xs bg-transparent absolute top-3 right-3" />
           )}
           <MediaPlayButton className="text-white bg-transparent" />
           <div className="flex flex-row gap-2 items-center w-full">

@@ -67,39 +67,55 @@ function EventLiveCycle({ currentState }: PropType) {
     }
   };
   return (
-    <div className="flex flex-row items-center w-full  justify-start">
+    <div
+      className="
+      flex flex-row md:items-center w-full
+      gap-6 md:gap-0
+    "
+    >
       {states.map((item, index) => {
         const styles = getStepStyles(index);
-        const isLast = index === states.length-1;
+        const isLast = index === states.length - 1;
+
         return (
           <div
             key={item.state}
-            className="flex flex-1 gap-1 sm:gap-2 items-center w-full"
+            className="
+            flex md:flex-1 md:items-center
+            flex-row md:flex-col
+            items-center
+          "
           >
-            <div className="flex flex-col gap-2 items-center flex-1">
+            {/* Node block */}
+            <div className="flex flex-row md:flex-col items-center md:flex-1">
+              <div className={cn("w-2 h-2 rounded-full animate-pulse", styles.line)} />
+
               <div
                 className={cn(
-                  "h-6 sm:h-8 sm:h-12 w-6 sm:w-8 sm:w-12 rounded-full p-1 flex items-center justify-center border-2 transition-all",
-                  styles.bg,
-                  styles.border,
+                  "h-[1px] md:h-6 md:w-[1px] w-6 mt-0 md:mt-1 ml-2 md:ml-0",
+                  styles.line,
                 )}
-              >
-                <p className={cn("text-xs sm:text-sm font-bold", styles.text)}>
-                  {index + 1}
-                </p>
-              </div>
+              />
 
-              <p
+              <span
                 className={cn(
-                  "uppercase text-xs tracking-wide font-extrabold hidden md:block",
+                  "text-[10px] uppercase tracking-widest ml-2 md:ml-0 md:mt-2 hidden md:inline-block",
                   styles.text,
                 )}
               >
                 {item.state}
-              </p>
+              </span>
             </div>
 
-            {!isLast && <div className={cn("flex-1 h-1", styles.line)} />}
+            {/* Connector line (desktop only) */}
+            {!isLast && (
+              <div
+                className={cn(
+                  "hidden md:block h-[1px] flex-1",
+                  index < activeIndex ? "bg-emerald-500/60" : "bg-zinc-800",
+                )}
+              />
+            )}
           </div>
         );
       })}
