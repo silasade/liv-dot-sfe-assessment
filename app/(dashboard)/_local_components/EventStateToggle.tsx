@@ -18,11 +18,26 @@ type PropType = {
 };
 const eventFlow: Record<
   EventStateType,
-  { next: EventStateType | null; label: string }
+  {
+    next: EventStateType | null;
+    prev?: EventStateType;
+    label: string;
+    backLabel?: string;
+  }
 > = {
   draft: { next: "scheduled", label: "Schedule event" },
-  scheduled: { next: "ready", label: "Mark as ready" },
-  ready: { next: "live", label: "Go live" },
+  scheduled: {
+    next: "ready",
+    prev: "draft",
+    label: "Mark as ready",
+    backLabel: "Back to draft",
+  },
+  ready: {
+    next: "live",
+    prev: "scheduled",
+    label: "Go live",
+    backLabel: "Back to scheduled",
+  },
   live: { next: "completed", label: "Mark complete" },
   completed: { next: "replay", label: "Replay" },
   replay: { next: null, label: "Replay mode" },
@@ -46,7 +61,16 @@ function EventStateToggle({ state, isReady }: PropType) {
       console.error(error);
     }
   };
+  const handleRollback = async () => {
+    try {
+      const prevState = eventFlow[state].prev;
+      if (!prevState) return;
 
+      await mutateAsync({ state: prevState });
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const handleState = async () => {
     try {
       const nextState = eventFlow[state].next;
@@ -115,14 +139,26 @@ function EventStateToggle({ state, isReady }: PropType) {
     );
   }
   return (
-    <Button
-      disabled={isPending || state === "replay" || !isReady}
-      onClick={handleState}
-      className="bg-white text-black hover:bg-zinc-200 w-fit"
-    >
-      {state === "ready" && <Cctv className="h-5 w-5 text-primary" />}
-      {isPending ? "Updating..." : eventFlow[state].label}{" "}
-    </Button>
+    <div className="flex flex-row items-center gap-2">
+      {(state === "scheduled" || state === "ready") && (
+        <Button
+          variant="ghost"
+          onClick={handleRollback}
+          className={"cursor-pointer hover:opacity-50"}
+        >
+          {state === "scheduled" ? "Back to draft" : "Back to schedule"}
+        </Button>
+      )}
+
+      <Button
+        disabled={isPending || state === "replay" || !isReady}
+        onClick={handleState}
+        className="bg-white text-black hover:bg-zinc-200 w-fit"
+      >
+        {state === "ready" && <Cctv className="h-5 w-5 text-primary" />}
+        {isPending ? "Updating..." : eventFlow[state].label}{" "}
+      </Button>
+    </div>
   );
 }
 
