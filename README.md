@@ -40,7 +40,7 @@ The codebase follows a locality-first organizing principle. The main user interf
 
 **Data Service Layer**
 All remote asynchronous operations are strictly organized inside the `/lib/services/` directory to prevent data logic from leaking into UI components:
-- `/lib/services/mockData`: Maintains the initial dataset and static payload structures for the API (without artificial blocking delays).
+- `/lib/services/mockData`: Maintains the initial dataset and static payload structures for the API.
 - `/lib/services/queries`: Encapsulates reusable TanStack Query fetchers (`useQuery`), serving as the single source of truth for read operations.
 - `/lib/services/mutations`: Isolates data manipulation (`useMutation`), cleanly orchestrating cache invalidations alongside Next.js API requests.
 - `/lib/services/schemas`: Houses all Zod definitions to enforce an ironclad data contract across the entire service ecosystem.
