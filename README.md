@@ -38,14 +38,14 @@ State progression is inherently guarded. The transition to `Ready for Streaming`
 **Component Structure**
 The repository groups files tightly by Feature Scope (Locality of Behavior). The core interface lives in `app/(dashboard)`. Components specific strictly to the operations dashboard are kept under `_local_components/` right alongside `page.tsx`. If a component ever needs to be shared across multiple routes or components, it is promoted out to `_global_components/`.
 
-**State Management Approach**
-I deliberately avoided a general-purpose global client state library (e.g., Redux, Zustand).
-- **Server/Async State** is managed entirely by TanStack Query. It serves as my single source of truth for remote event data, maintaining loading patterns and cache invalidation automatically.
-- **Local/Ephemeral UI State** is handled natively with React `useState` kept close to where it's used inside individual feature components.
+**State Architecture**
+Rather than relying on heavy global state containers like Redux or Zustand, I adopted a split approach tailored for modern React:
+- **Remote Data Synchronization**: TanStack Query acts as the primary data orchestrator for server state, automatically handling background fetching, caching, and status indicators without manual boilerplate.
+- **Component-Level State**: Given that UI states are mostly ephemeral, React's native `useState` is used exclusively within local component boundaries to maintain tight encapsulation.
 
-**Assumptions & Tradeoffs**
-- *Mocked Backend*: I assume all event configurations simulate network latency. Mock data delays are implemented within the `lib/services/mockData` layer to demonstrate Loading and Error threshold boundaries cleanly without needing an actual database.
-- *Strict Separation over DRY*: I aggressively decouple UI components (View) from logic (ViewModel hooks). This adds slight boilerplate but massively scales automated testability (as demonstrated in my setup via Vitest).
+**Design Decisions & Context**
+- *Next.js Route Handlers*: The application fetches data and performs asynchronous operations through Next.js API endpoints (`app/api`) mapped directly to TanStack Query. This establishes a clean, realistic data-fetching lifecycle—automatically powering the UI's loading, fetching, and error states.
+- *Prioritizing Decoupling*: The architecture intentionally separates presentational components from the underlying business logic hooks. While this introduces slightly more code than a tightly coupled approach, it significantly improves modularity and makes unit testing (via Vitest) completely frictionless.
 
 ---
 

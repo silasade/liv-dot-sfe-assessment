@@ -70,7 +70,7 @@ function EventLiveCycle({ currentState }: PropType) {
     <div className="flex flex-row items-center w-full  justify-start">
       {states.map((item, index) => {
         const styles = getStepStyles(index);
-        const isLast = index === states.length - 1;
+        const isLast = index === states.length-1;
         return (
           <div
             key={item.state}
