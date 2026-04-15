@@ -16,7 +16,7 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh] bg-[#0A0C10] text-white">
+      <div className="flex items-center justify-center min-h-[60vh] bg-[#F8FAFC] text-white">
         <div className="flex items-center gap-2 text-zinc-400">
           <LoaderCircle className="h-5 w-5 animate-spin" />
           <span className="text-sm">Loading event...</span>
@@ -27,7 +27,7 @@ export default function Home() {
 
   if (isError) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh] bg-[#0A0C10] text-white">
+      <div className="flex items-center justify-center min-h-[60vh] bg-[#F8FAFC] text-white">
         <div className="flex flex-col items-center gap-3 text-center">
           <AlertTriangle className="h-8 w-8 text-red-400" />
           <div>
