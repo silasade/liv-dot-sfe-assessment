@@ -49,7 +49,7 @@ function EventDetails({
         </CardDescription>
 
         {/* META INFO */}
-        <div className="flex items-center gap-3 text-xs text-zinc-500 pt-2">
+        <div className="flex flex-wrap items-center gap-3 text-xs text-zinc-500 pt-2">
           <span className="px-2 py-1 rounded-md bg-zinc-800 border border-zinc-700">
             ID: {id}
           </span>

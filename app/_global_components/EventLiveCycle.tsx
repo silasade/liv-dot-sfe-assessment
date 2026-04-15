@@ -79,7 +79,7 @@ function EventLiveCycle({ currentState }: PropType) {
             <div className="flex flex-col gap-2 items-center flex-1">
               <div
                 className={cn(
-                  "h-5 sm:h-8 sm:h-12 w-5 sm:w-8 sm:w-12 rounded-full p-1 flex items-center justify-center border-2 transition-all",
+                  "h-6 sm:h-8 sm:h-12 w-6 sm:w-8 sm:w-12 rounded-full p-1 flex items-center justify-center border-2 transition-all",
                   styles.bg,
                   styles.border,
                 )}
